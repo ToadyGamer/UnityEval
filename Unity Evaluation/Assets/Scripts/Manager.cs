@@ -14,8 +14,12 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject lostUI;
 
+    [SerializeField] private AudioSource winSound;
+    [SerializeField] private AudioSource lostSound;
+
     public void Start()
     {
+        Time.timeScale = 1;
         StartCoroutine(TimerCounter());
         timerUI.text = "Temps restant : " + timer;
     }
@@ -44,10 +48,20 @@ public class Manager : MonoBehaviour
 
     public void End(bool isWin)
     {
-        isOver = false;
+        isOver = true;
 
-        if (isWin) winUI.SetActive(true);
-        else lostUI.SetActive(true);
+        Time.timeScale = 0;
+
+        if (isWin)
+        {
+            winSound.Play();
+            winUI.SetActive(true);
+        }
+        else
+        {
+            lostSound.Play();
+            lostUI.SetActive(true);
+        }
 
     }
 }

@@ -21,6 +21,11 @@ public class Player : MonoBehaviour
     [Header("Effects")]
     public TrailRenderer boost1, boost2;
 
+    [Space(20)]
+    [Header("Effects")]
+    public AudioSource cheeseSound;
+    public AudioSource boostSound;
+
     private Vector3 direction;
     void Update()
     {
@@ -51,6 +56,7 @@ public class Player : MonoBehaviour
         boost = true;
         boost1.time = 0.4f;
         boost2.time = 0.4f;
+        boostSound.Play();
         animator.SetBool("Boost", true);
         yield return new WaitForSeconds(3);
         boost = false;
@@ -70,6 +76,7 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Cheese"))
         {
             Destroy(other.gameObject);
+            cheeseSound.Play();
             manager.AddPoint();
         }
     }
